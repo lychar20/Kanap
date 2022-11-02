@@ -1,4 +1,5 @@
 const express = require('express');
+const { url } = require('inspector');
 const path = require('path');
 
 const productRoutes = require('./routes/product');
@@ -21,3 +22,5 @@ app.use(express.json());
 app.use('/api/products', productRoutes);
 
 module.exports = app;
+
+
