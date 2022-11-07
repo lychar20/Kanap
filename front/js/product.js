@@ -3,6 +3,7 @@
 //.innerText = "Canapé1";
 
 
+//Récupération de la variable ID de l'URL
 
  console.log("Window Location:", window.location);
 
@@ -15,6 +16,8 @@
 
  console.log("ID:", param1);
 
+
+ //Fonction qui montre les différents canapés et les options 
 
  fetch(`http://localhost:3000/api/products/${param1}`)
  .then(function(res) {
@@ -38,10 +41,14 @@ document
 .innerText = `${value.price}`;
 
 
-document
-.getElementsByClassName("item__img")
-.innerText =`<img src="${value.imageUrl}" alt="${value.altTxt}">`;
+document.querySelector(".item__img").innerHTML = `<img src="${value.imageUrl}" alt="${value.altTxt}">`;
 
+
+console.log(value.colors.length);
+for (let i = 0; i < value.colors.length; i++) {
+    document.querySelector('#colors').innerHTML  += `<option value= "${value.colors[i]}"> ${value.colors[i]} </option>
+    `
+}
 
 
 })
@@ -50,3 +57,16 @@ document
   
 })
 
+
+//Fonction pour storer les choix dans la page panier
+
+
+const local = Json.parse(localStorage.getItem("sofa"));
+
+addToCart.onclik = () =>{
+    const sofa = {
+        id: `${value.price}`
+    }
+
+    localStorage.setItem("id", JSON.stringify(sofa));
+}
