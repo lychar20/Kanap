@@ -58,15 +58,38 @@ for (let i = 0; i < value.colors.length; i++) {
 })
 
 
+
+
+
 //Fonction pour storer les choix dans la page panier
 
 
-const local = Json.parse(localStorage.getItem("sofa"));
 
-addToCart.onclik = () =>{
+
+//addToCart.onclik = () =>{
+//    const sofa = {
+//        id: `${value.price}`
+//    }
+
+//    localStorage.setItem("id", JSON.stringify(sofa));
+//}
+
+
+const local = JSON.parse(localStorage.getItem("sofa"));
+
+
+//if(local != null)
+//local.push(sofa);
+
+
+addToCart.onclick = () =>{
     const sofa = {
-        id: `${value.price}`
+        id: param1,
+        nombre: quantity.value,
+        couleur: colors.value
     }
 
-    localStorage.setItem("id", JSON.stringify(sofa));
+
+    localStorage.setItem("sofa", JSON.stringify(sofa));
+    document.location.reload();
 }
