@@ -63,33 +63,50 @@ for (let i = 0; i < value.colors.length; i++) {
 
 //Fonction pour storer les choix dans la page panier
 
+function saveBasket(sofa) {
+    localStorage.setItem("sofa", JSON.stringify(sofa));
+}
+
+
+function getBasket () {
+    let sofa = localStorage.getItem("sofa");
+    if (sofa == null) {
+        return [];
+    } else {
+        return JSON.parse(sofa);
+    }
+}
+
+function addBasket(product) {
+    let sofa = getBasket();
+    sofa.push(product);
+    saveBasket(sofa);
+}
+
+
+//const local = JSON.parse(localStorage.getItem("sofa"));
+
+const elementclique = document.getElementById('addToCart');
 
 
 
-//addToCart.onclik = () =>{
-//    const sofa = {
-//        id: `${value.price}`
-//    }
+elementclique.addEventListener('click', function(event) {
 
-//    localStorage.setItem("id", JSON.stringify(sofa));
-//}
-
-
-const local = JSON.parse(localStorage.getItem("sofa"));
-
-
-//if(local != null)
-//local.push(sofa);
-
-
-addToCart.onclick = () =>{
     const sofa = {
         id: param1,
         nombre: quantity.value,
         couleur: colors.value
     }
 
+    
 
-    localStorage.setItem("sofa", JSON.stringify(sofa));
-    document.location.reload();
-}
+   saveBasket(sofa)
+    //document.location.reload();
+
+    //addBasket(product)
+    
+
+
+}); 
+
+
