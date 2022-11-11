@@ -63,13 +63,13 @@ for (let i = 0; i < value.colors.length; i++) {
 
 //Fonction pour storer les choix dans la page panier
 
-function saveBasket(sofa) {
-    localStorage.setItem("sofa", JSON.stringify(sofa));
+function saveBasket(sofas) {
+    // on enrigistre le tableau dans le local storage
+    localStorage.setItem("sofas", JSON.stringify(sofas));
 }
 
-
 function getBasket () {
-    let sofa = localStorage.getItem("sofa");
+    let sofa = localStorage.getItem("sofas");
     if (sofa == null) {
         return [];
     } else {
@@ -78,17 +78,30 @@ function getBasket () {
 }
 
 function addBasket(product) {
-    let sofa = getBasket();
-    sofa.push(product);
-    saveBasket(sofa);
+    // on récupère le LocalStorage dans une variable temporaire
+    let sofaFromLS = getBasket();
+    console.log("sofaFromLS",sofaFromLS);
+    //On cherche si un des produit et deja dans le panier
+    let findIndex = sofaFromLS.findIndex(
+        (elt) => elt.id === param1);
+    console.log("index trouvé",findIndex);
+    //On incremente si le produit existe déja
+    if (findIndex != -1) {
+        sofaFromLS[findIndex].nombre ++;   
+    } else { 
+    
+    // on ajoute le produit à la variable temporaire
+    sofaFromLS.push(product);
+    console.log("sofaFromLS + nouveau produit",sofaFromLS);
 }
+    // on enregistre la variable temporaire (le panier au complet) dans le LocalStorage
+    saveBasket(sofaFromLS);
 
+}
 
 //const local = JSON.parse(localStorage.getItem("sofa"));
 
 const elementclique = document.getElementById('addToCart');
-
-
 
 elementclique.addEventListener('click', function(event) {
 
@@ -96,14 +109,19 @@ elementclique.addEventListener('click', function(event) {
         id: param1,
         nombre: quantity.value,
         couleur: colors.value
-    }
+    }    
 
-    
+    addBasket(sofa);
 
-   saveBasket(sofa)
+   //saveBasket(sofa)
     //document.location.reload();
-
     //addBasket(product)
+
+/*     let sofaFromLS = getBasket()
+    sofaFromLS.push(sofa)
+    localStorage.setItem("sofa", JSON.stringify(sofaFromLS)); */
+
+
     
 
 
