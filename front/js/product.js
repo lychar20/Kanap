@@ -63,6 +63,8 @@ for (let i = 0; i < value.colors.length; i++) {
 
 //Fonction pour storer les choix dans la page panier
 
+
+
 function saveBasket(sofas) {
     // on enrigistre le tableau dans le local storage
     localStorage.setItem("sofas", JSON.stringify(sofas));
@@ -78,19 +80,18 @@ function getBasket () {
 }
 
 function addBasket(product) {
+
     // on récupère le LocalStorage dans une variable temporaire
     let sofaFromLS = getBasket();
     console.log("sofaFromLS",sofaFromLS);
-    //On cherche si un des produit et deja dans le panier
-    let findIndex = sofaFromLS.findIndex(
-        (elt) => elt.id === param1);
-    console.log("index trouvé",findIndex);
-    //On incremente si le produit existe déja
-    if (findIndex != -1) {
-        sofaFromLS[findIndex].nombre ++;   
-    } else { 
-    
     // on ajoute le produit à la variable temporaire
+    let foundProduct = sofaFromLS.find(p => p.id == param1 && p.couleur == colors.value);
+    console.log("foundProduct", foundProduct);
+    if (foundProduct != undefined) {
+        let additionQuantité = parseInt(foundProduct.nombre) + parseInt(quantity.value);
+        foundProduct.nombre = JSON.stringify(additionQuantité);
+    } else {
+    // Ici pour rentrer les tests
     sofaFromLS.push(product);
     console.log("sofaFromLS + nouveau produit",sofaFromLS);
 }
@@ -101,30 +102,39 @@ function addBasket(product) {
 
 //const local = JSON.parse(localStorage.getItem("sofa"));
 
+
+
 const elementclique = document.getElementById('addToCart');
 
 elementclique.addEventListener('click', function(event) {
 
-    const sofa = {
+    const sofa = { 
         id: param1,
         nombre: quantity.value,
         couleur: colors.value
     }    
 
+
+    let myInput = document.getElementById('quantity');
+    let myInput2 = document.getElementById('colors');
+
+    if ( myInput.value == 0 ) { 
+        alert("choississez une quantité");
+        e.preventDefault();
+    } else if (myInput2.value == "") { 
+        alert("choississez une couleur");
+     } else { 
     addBasket(sofa);
+}
 
-   //saveBasket(sofa)
-    //document.location.reload();
-    //addBasket(product)
-
-/*     let sofaFromLS = getBasket()
-    sofaFromLS.push(sofa)
-    localStorage.setItem("sofa", JSON.stringify(sofaFromLS)); */
-
-
-    
 
 
 }); 
 
 
+
+/* if ( quantity.value = 3 ) { 
+    alert("choississez une quantité");
+} else { 
+addBasket(sofa);
+} */
