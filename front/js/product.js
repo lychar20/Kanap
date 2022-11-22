@@ -88,8 +88,9 @@ function addBasket(product) {
     let foundProduct = sofaFromLS.find(p => p.id == param1 && p.couleur == colors.value);
     console.log("foundProduct", foundProduct);
     if (foundProduct != undefined) {
-        let additionQuantité = parseInt(foundProduct.nombre) + parseInt(quantity.value);
-        foundProduct.nombre = JSON.stringify(additionQuantité);
+        foundProduct.nombre = parseInt(foundProduct.nombre) + parseInt(quantity.value);
+        //let additionQuantité = parseInt(foundProduct.nombre) + parseInt(quantity.value);
+       // foundProduct.nombre = JSON.stringify(additionQuantité);
     } else {
     // Ici pour rentrer les tests
     sofaFromLS.push(product);
