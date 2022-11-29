@@ -87,8 +87,6 @@ if (sofa != null ) {
     
     //
 
-
-
     //
 
 } else {
@@ -104,10 +102,11 @@ if (sofa != null ) {
 
 
 
-  let prixTotalCalcul = []
+  /* let prixTotalCalcul = [] */
 
+  
 
-for (let m = 0; m < panierentier.length; m++ ){
+/* for (let m = 0; m < panierentier.length; m++ ){
   let prixProduitsDanslePanier = panierentier[m].prix;
   console.log ("Test1",prixProduitsDanslePanier );
   console.log("Test2", panierentier.length);
@@ -116,8 +115,17 @@ for (let m = 0; m < panierentier.length; m++ ){
   prixTotalCalcul.push(prixProduitsDanslePanier)
 
   console.log("prixTotal", prixTotalCalcul);
-} 
+}  */
 
+
+console.log("cool2", panierentier.length); 
+
+for (let produit of panierentier) {
+  let nouveauTableau = `${produit.prix}`;
+}
+console.log("PanierPrix", nouveauTableau);
+
+console.log("sofala", sofa.length);
 
 
  
