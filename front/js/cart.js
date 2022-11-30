@@ -73,7 +73,40 @@ if (sofa != null ) {
               </div>
             </article>`;   
 
+            
 
+            // ici pour fonction total
+            
+            //Déclaration des variables pour mettre les prix et quantités présent dans le panier
+            let prixTotalCalcul = [];
+            let quantiteTotalCalcul = [];
+
+            for (let m = 0; m < panierentier.length; m++) {
+              let prixProduitsDanslePanier =  panierentier[m].prix * panierentier[m].quantite;
+              let quantiteDansLePanier = parseInt(panierentier[m].quantite);  //panierentier[m].quantite
+
+
+              prixTotalCalcul.push(prixProduitsDanslePanier)
+              quantiteTotalCalcul.push(quantiteDansLePanier)
+
+              console.log("PrixTotalCalcul", prixTotalCalcul);
+              console.log("quantiteTotalCalcul", quantiteTotalCalcul);
+            }
+
+            //Additionner les prix du tableau prixTotalCalcul et les quantite
+
+            const reducer = (accumulator, currentValue) => accumulator + currentValue;
+            const prixTotal = prixTotalCalcul.reduce(reducer, 0);
+            console.log("prixTotal", prixTotal);
+
+            const quantiteTotal = quantiteTotalCalcul.reduce(reducer, 0);
+            console.log("quantiteTotal", quantiteTotal);
+
+            //Le code HTML du prix a afficher et les quantités
+            document.querySelector('#totalPrice').innerHTML =  `${prixTotal}`
+            document.querySelector('#totalQuantity').innerHTML = `${quantiteTotal}`
+
+            //
               
              })
           .catch(function(err) {
@@ -118,15 +151,15 @@ if (sofa != null ) {
 }  */
 
 
-console.log("cool2", panierentier.length); 
+/* console.log("cool2", panierentier.length); 
 
 for (let produit of panierentier) {
   let nouveauTableau = `${produit.prix}`;
 }
 console.log("PanierPrix", nouveauTableau);
 
-console.log("sofala", sofa.length);
 
 
- 
+console.log("blackbeatles", `${value.price}`);
+  */
  
