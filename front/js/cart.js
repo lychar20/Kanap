@@ -1,33 +1,16 @@
-/* document
-.getElementById("cart__items")
-.innerHTML = "enfin sur chrome"; */
-
-/* let sofa = JSON.parse(localStorage.getItem("sofas"));
-
-if (sofa != null ) {
-    document
-.getElementById("cart__items")
-.innerHTML = "enfin sur chrome";
-} else {
-    document
-    .getElementById("cart__items")
-    .innerHTML = "NANNNNNNNN";
-}
- */
-
-// Panier 2
-
 let sofa = JSON.parse(localStorage.getItem("sofas"));
 console.log("sofa", sofa);
 
 let panierentier = []
+
+let allPromises = []
 
 
 if (sofa != null ) {
 
   sofa.forEach(canap => {
 
-    fetch(`http://localhost:3000/api/products/${canap.id}`)         
+  const promise =  fetch(`http://localhost:3000/api/products/${canap.id}`)         
 
         .then(function(res) {
             if (res.ok) {
@@ -44,14 +27,39 @@ if (sofa != null ) {
              prix: value.price,    // tableau value
              quantite: canap.nombre,   //canap.nombre
              couleur: canap.couleur    //canap.couleur
-            })  
-
-            console.log(canap)
-            console.log(panierentier)
+            })                
+             })
+          .catch(function(err) {
             
-            
+          })   
+    
+          allPromises.push(promise)
+  });                                   //jusqu'a la c'est bon
 
-            document.querySelector('#cart__items').innerHTML += `<article class="cart__item" data-id="${value._id}" data-color="${canap.couleur}">
+  Promise.all(allPromises).then(() => {
+    console.log("PanierEntier", panierentier)
+
+    displayProduct()
+    calculTotal()
+    //addEventOnButton() 
+
+  })
+     
+
+} else {
+    document
+   .getElementById("cart__items")
+   .innerHTML = "NANNNNNNNN";
+    
+}
+
+
+
+
+// Les Fonctions
+
+function displayProduct () {
+  document.querySelector('#cart__items').innerHTML += `<article class="cart__item" data-id="${value._id}" data-color="${canap.couleur}">
               <div class="cart__item__img">
               <img src="${value.imageUrl}">
               </div>
@@ -71,14 +79,12 @@ if (sofa != null ) {
                   </div>
                 </div>
               </div>
-            </article>`;   
+            </article>`;
+}
 
-            
 
-            // ici pour fonction total
-            
-            //Déclaration des variables pour mettre les prix et quantités présent dans le panier
-            let prixTotalCalcul = [];
+function calculTotal () {
+  let prixTotalCalcul = [];
             let quantiteTotalCalcul = [];
 
             for (let m = 0; m < panierentier.length; m++) {
@@ -105,61 +111,4 @@ if (sofa != null ) {
             //Le code HTML du prix a afficher et les quantités
             document.querySelector('#totalPrice').innerHTML =  `${prixTotal}`
             document.querySelector('#totalQuantity').innerHTML = `${quantiteTotal}`
-
-            //
-              
-             })
-          .catch(function(err) {
-            
-          })   
-    
-  });
-    
-
-    console.log("panierentier", panierentier);    
-    
-    //
-
-    //
-
-} else {
-    document
-   .getElementById("cart__items")
-   .innerHTML = "NANNNNNNNN";
-    
 }
-
-
-
-// Fonctions de calcul
-
-
-
-  /* let prixTotalCalcul = [] */
-
-  
-
-/* for (let m = 0; m < panierentier.length; m++ ){
-  let prixProduitsDanslePanier = panierentier[m].prix;
-  console.log ("Test1",prixProduitsDanslePanier );
-  console.log("Test2", panierentier.length);
-  console.log ("Test3", panierentier );
-
-  prixTotalCalcul.push(prixProduitsDanslePanier)
-
-  console.log("prixTotal", prixTotalCalcul);
-}  */
-
-
-/* console.log("cool2", panierentier.length); 
-
-for (let produit of panierentier) {
-  let nouveauTableau = `${produit.prix}`;
-}
-console.log("PanierPrix", nouveauTableau);
-
-
-
-console.log("blackbeatles", `${value.price}`);
-  */
- 
