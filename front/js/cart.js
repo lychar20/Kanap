@@ -5,7 +5,6 @@ let panierentier = []
 
 let allPromises = []
 
-
 if (sofa != null ) {
 
   sofa.forEach(canap => {
@@ -59,27 +58,31 @@ if (sofa != null ) {
 // Les Fonctions
 
 function displayProduct () {
-  document.querySelector('#cart__items').innerHTML += `<article class="cart__item" data-id="${value._id}" data-color="${canap.couleur}">
-              <div class="cart__item__img">
-              <img src="${value.imageUrl}">
-              </div>
-              <div class="cart__item__content">
-                <div class="cart__item__content__description">
-                  <h2>${value.name} </h2>
-                  <p>${canap.couleur}</p>
-                  <p>${value.price} euros </p>
-                </div>
-                <div class="cart__item__content__settings">
-                  <div class="cart__item__content__settings__quantity">
-                    <p>${canap.nombre} </p>
-                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${canap.nombre}">
-                  </div>
-                  <div class="cart__item__content__settings__delete">
-                    <p class="deleteItem">Supprimer</p>
-                  </div>
-                </div>
-              </div>
-            </article>`;
+
+  panierentier.map((product) => {
+    document.querySelector('#cart__items').innerHTML += `<article class="cart__item" data-id="${product.id}" data-color="${product.couleur}">
+    <div class="cart__item__img">
+    <img src="${product.image}">
+    </div>
+    <div class="cart__item__content">
+      <div class="cart__item__content__description">
+        <h2>${product.nom} </h2>
+        <p>${product.couleur}</p>
+        <p>${product.prix} euros </p>
+      </div>
+      <div class="cart__item__content__settings">
+        <div class="cart__item__content__settings__quantity">
+          <p>${product.quantite} </p>
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantite}">
+        </div>
+        <div class="cart__item__content__settings__delete">
+          <p class="deleteItem">Supprimer</p>
+        </div>
+      </div>
+    </div>
+  </article>`;
+})
+  
 }
 
 
