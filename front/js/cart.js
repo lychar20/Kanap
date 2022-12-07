@@ -41,6 +41,7 @@ if (sofa != null ) {
     displayProduct()
     calculTotal()
     //addEventOnButton() 
+    changeQuantity()
 
   })
      
@@ -115,3 +116,46 @@ function calculTotal () {
             document.querySelector('#totalPrice').innerHTML =  `${prixTotal}`
             document.querySelector('#totalQuantity').innerHTML = `${quantiteTotal}`
 }
+
+
+
+ // changer la quantité
+
+/*  function addEventOnButton() {
+
+  const changequantity = document.querySelectorAll('.itemQuantity');
+  console.log("changequantity", changequantity)
+  
+ 
+ changequantity.addEventListener('change', (event) => {
+   //const newquantity = document.querySelector('cart__item__content__settings__quantity');  
+   //newquantity.innerHTML = ` ${event.target.value} `;
+
+ })
+
+ }
+ */
+
+/*  function changeQuantity() {
+
+  let itemQuantity = document.querySelectorAll('.itemQuantity');
+  itemQuantity.forEach((item) => {
+    item.addEventListener('change', function() {
+      newQuantity = parseInt(item.value);
+      let article = item.closest("article");
+      productID = article.getAttribute("data-id");
+      productColor = article.getAttribute("data-color");
+      let product = JSON.parse(localStorage.getItem(productID + ";" + productColor));
+      product.qte = newQuantity;
+      console.log(product)
+      console.log(newQuantity)
+      localStorage.setItem(product + ";" + productColor, JSON.stringify(product))
+      displayTotal()
+    })
+  })
+ }
+ */
+
+ function changeQuantity() {
+  
+ }
