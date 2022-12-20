@@ -24,7 +24,7 @@ if (sofa != null ) {
              nom: value.name,
              image: value.imageUrl,
              prix: value.price,    // tableau value
-             quantite: canap.nombre,   //canap.nombre
+             nombre: canap.nombre,   //canap.nombre
              couleur: canap.couleur    //canap.couleur
             })                
              })
@@ -40,8 +40,10 @@ if (sofa != null ) {
 
     displayProduct()
     calculTotal()
-    //addEventOnButton() 
+    addEventOnButton() 
     changeQuantity()
+    
+    
 
   })
      
@@ -73,8 +75,8 @@ function displayProduct () {
       </div>
       <div class="cart__item__content__settings">
         <div class="cart__item__content__settings__quantity">
-          <p>${product.quantite} </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.quantite}">
+          <p>Qté: </p>
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product.nombre}">
         </div>
         <div class="cart__item__content__settings__delete">
           <p class="deleteItem">Supprimer</p>
@@ -88,19 +90,21 @@ function displayProduct () {
 
 
 function calculTotal () {
+  console.log("calculT", panierentier);
   let prixTotalCalcul = [];
             let quantiteTotalCalcul = [];
 
             for (let m = 0; m < panierentier.length; m++) {
-              let prixProduitsDanslePanier =  panierentier[m].prix * panierentier[m].quantite;
-              let quantiteDansLePanier = parseInt(panierentier[m].quantite);  //panierentier[m].quantite
+              let prixProduitsDanslePanier =  panierentier[m].prix * panierentier[m].nombre;
+              let quantiteDansLePanier = parseInt(panierentier[m].nombre);  //panierentier[m].quantite
 
 
               prixTotalCalcul.push(prixProduitsDanslePanier)
               quantiteTotalCalcul.push(quantiteDansLePanier)
 
-              console.log("PrixTotalCalcul", prixTotalCalcul);
-              console.log("quantiteTotalCalcul", quantiteTotalCalcul);
+              // console.log("PrixTotalCalcul", prixTotalCalcul);
+              //console.log("quantiteTotalCalcul", quantiteTotalCalcul); 
+              
             }
 
             //Additionner les prix du tableau prixTotalCalcul et les quantite
@@ -121,41 +125,100 @@ function calculTotal () {
 
  // changer la quantité
 
-/*  function addEventOnButton() {
 
-  const changequantity = document.querySelectorAll('.itemQuantity');
-  console.log("changequantity", changequantity)
-  
- 
- changequantity.addEventListener('change', (event) => {
-   //const newquantity = document.querySelector('cart__item__content__settings__quantity');  
-   //newquantity.innerHTML = ` ${event.target.value} `;
 
- })
-
- }
- */
-
-/*  function changeQuantity() {
+  function changeQuantity() {
 
   let itemQuantity = document.querySelectorAll('.itemQuantity');
+  console.log ("itemQuantity", itemQuantity);
   itemQuantity.forEach((item) => {
-    item.addEventListener('change', function() {
-      newQuantity = parseInt(item.value);
-      let article = item.closest("article");
+    item.addEventListener('change', function(e) {
+      console.log(e.target.value);
+      let article = e.target.closest("article");
+      console.log("article", article);
       productID = article.getAttribute("data-id");
       productColor = article.getAttribute("data-color");
-      let product = JSON.parse(localStorage.getItem(productID + ";" + productColor));
-      product.qte = newQuantity;
-      console.log(product)
-      console.log(newQuantity)
-      localStorage.setItem(product + ";" + productColor, JSON.stringify(product))
-      displayTotal()
+
+      let index = sofa.findIndex(p => p.id == productID && p.couleur == productColor)
+      console.log("index", index);
+
+      sofa[index].nombre = e.target.value
+      panierentier[index].nombre = e.target.value // a bosser
+      console.log("coucou", sofa[index].nombre);
+      
+
+      localStorage.setItem("sofas", JSON.stringify(sofa));
+     
+      calculTotal()
+     
     })
   })
  }
- */
+ 
 
- function changeQuantity() {
-  
+
+console.log('salut cava?')
+
+ function addEventOnButton () { 
+
+  let deleteproduct = document.querySelectorAll('.deleteItem');
+  console.log ("deleteproduct", deleteproduct);
+
+   deleteproduct.forEach((thing) => {
+    thing.addEventListener('click', function(e) {
+      
+      console.log('ca marche');
+      console.log(e.target.value);
+      
+      
+      let article2 = e.target.closest("article");
+      console.log("article2", article2);
+      productID2 = article2.getAttribute("data-id");
+      productColor2 = article2.getAttribute("data-color");
+
+      /* let indexDelete = sofa.findIndex(p => p.id == productID2 && p.couleur == productColor2)
+      console.log("indexDelete", indexDelete); */
+
+      sofa = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2);
+      
+      
+      localStorage.setItem("sofas", JSON.stringify(sofa));
+     
+      alert("Ce produit a été supprimé du panier");
+      window.location.href = "cart.html";
+      
+    
+    })
+  }) 
+
  }
+
+
+
+
+
+
+
+
+
+
+
+/* let deleto = document.querySelectorAll('.deleteItem');
+console.log ("deleteItem", deleto);
+
+deleteproduct.forEach((thing) => {
+  thing.addEventListener('click', function(e) {
+    
+    let article2 = e.target.closest("article");
+    console.log("article2", article);
+    productID = article.getAttribute("data-id");
+    productColor = article.getAttribute("data-color");
+  })
+}) */
+
+
+
+  /* let article2 = thing.closest("article");  //e.target.closest
+      console.log("article2", article2);
+      productID2 = article.getAttribute("data-id");
+      productColor2 = article.getAttribute("data-color"); */
