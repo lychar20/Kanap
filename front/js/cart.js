@@ -176,16 +176,22 @@ console.log('salut cava?')
       productID2 = article2.getAttribute("data-id");
       productColor2 = article2.getAttribute("data-color");
 
-      /* let indexDelete = sofa.findIndex(p => p.id == productID2 && p.couleur == productColor2)
-      console.log("indexDelete", indexDelete); */
+      let indexDelete = sofa.findIndex(p => p.id == productID2 && p.couleur == productColor2)
+      console.log("indexDelete", indexDelete);
+      sofa.splice(indexDelete, 1)
+      panierentier.splice(indexDelete, 1) 
 
-      sofa = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2);
-      
+      /* sofa = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2);
+      panierentier = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2); */
       
       localStorage.setItem("sofas", JSON.stringify(sofa));
+      article2.remove();
      
       alert("Ce produit a été supprimé du panier");
-      window.location.href = "cart.html";
+      //window.location.href = "cart.html";
+      //location.reload();
+
+      calculTotal ()
       
     
     })
@@ -196,29 +202,60 @@ console.log('salut cava?')
 
 
 
+//Fonction pour verifier l'adresse postale
 
+/*  validName ()
 
+function validName () {
+  let name = document.getElementById("firstName");
+  let textName = document.getElementById("firstNameErrorMsg");
 
+  name.addEventListener('input', function (e) {
+    let pattern = /^([a-zA-Z]{3,8})$/;
+    let currentValue = e.target.value;
+    console.log("currentValue", currentValue);
+    let valid = pattern.test(currentValue);
+   
 
-
-
-
-/* let deleto = document.querySelectorAll('.deleteItem');
-console.log ("deleteItem", deleto);
-
-deleteproduct.forEach((thing) => {
-  thing.addEventListener('click', function(e) {
-    
-    let article2 = e.target.closest("article");
-    console.log("article2", article);
-    productID = article.getAttribute("data-id");
-    productColor = article.getAttribute("data-color");
+    if (!valid) {
+      textName.innerHTML = "Votre nom doit etre entre trois et huis caractères"
+    } else {
+      textName.innerHTML = ""
+    }
   })
-}) */
+  
+   
+} */ 
+
+
+ validInput("firstName", "Votre prenom doit etre entre trois et vingt caractères", "/^([a-zA-Z]{2,20})$/")
+validInput("lastName", "Votre nom doit etre entre trois et vingt caractères", "/^([a-zA-Z]{2,20})$/")
+
+      function validInput (input, msg, regex) {
+        let dat = document.getElementById(input);
+        let textName = document.getElementById("firstNameErrorMsg");
+      
+        dat.addEventListener('input', function (e) {
+          let pattern = regex;
+          let currentValue = e.target.value;
+          console.log("currentValue", currentValue);
+          let valid = pattern.test(currentValue);
+         console.log("valid", valid)
+      
+          if (!valid) {
+            textName.innerHTML = msg
+          }
+           else {
+            textName.innerHTML = ""            
+        }
+       })   
+         
+      }
+ 
 
 
 
-  /* let article2 = thing.closest("article");  //e.target.closest
-      console.log("article2", article2);
-      productID2 = article.getAttribute("data-id");
-      productColor2 = article.getAttribute("data-color"); */
+
+
+
+
