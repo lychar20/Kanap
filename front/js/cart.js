@@ -202,41 +202,188 @@ console.log('salut cava?')
 
 
 
-//Fonction pour verifier l'adresse postale
+//Fonction pour verifier le prénom
 
-/*  validName ()
+let form = []
+
+
+  validName ()
 
 function validName () {
   let name = document.getElementById("firstName");
   let textName = document.getElementById("firstNameErrorMsg");
 
   name.addEventListener('input', function (e) {
-    let pattern = /^([a-zA-Z]{3,8})$/;
+    let pattern = /^([a-zA-Z]{2,20})$/;
     let currentValue = e.target.value;
-    console.log("currentValue", currentValue);
+    //console.log("currentValue", currentValue);
     let valid = pattern.test(currentValue);
    
 
     if (!valid) {
-      textName.innerHTML = "Votre nom doit etre entre trois et huis caractères"
+      textName.innerHTML = "Votre nom doit etre entre deux et vingt caractères"
+      return false;
+    } else {
+     // form.push({name: firstName.value})
+      //console.log("formulaire", form);
+      textName.innerHTML = ""
+      return true;
+    }
+  })
+  
+   
+} 
+
+
+//Fonction pour verifier le nom
+
+validLastName ()
+
+function validLastName () {
+  let lastname = document.getElementById("lastName");
+  let textName = document.getElementById("lastNameErrorMsg");
+
+  lastname.addEventListener('input', function (e) {
+    let pattern = /^([a-zA-Z]{2,20})$/;
+    let currentValue = e.target.value;
+    //console.log("currentValue", currentValue);
+    let valid = pattern.test(currentValue);
+   
+
+    if (!valid) {
+      textName.innerHTML = "Votre nom doit etre entre deux et vingt caractères"
+      return false;
+    } else {
+      //form.push({name2:lastName.value})
+      //console.log("formulaire", form);
+      textName.innerHTML = ""
+      return true;
+    }
+  })
+  
+   
+} 
+
+// Fonction valide adresse
+
+validAddress ()
+
+function validAddress () {
+  let address = document.getElementById("address");
+  let textName = document.getElementById("addressErrorMsg");
+
+  address.addEventListener('input', function (e) {
+    let pattern = /^([A-Za-z0-9\s\-]){5,50}$/;
+    let currentValue = e.target.value;
+    //console.log("currentValue", currentValue);
+    let valid = pattern.test(currentValue);
+   
+
+    if (!valid) {
+      textName.innerHTML = "Veuillez rentrer une adresse valide"
     } else {
       textName.innerHTML = ""
     }
   })
   
    
-} */ 
+} 
+
+//Fonction valide ville
+
+validVille ()
+
+function validVille () {
+  let city = document.getElementById("city");  //email
+  let textName = document.getElementById("cityErrorMsg");  //emailErrorMsg
+
+  city.addEventListener('input', function (e) {
+    let pattern = /^([A-Za-z\s\-]){5,50}$/;   //  /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let currentValue = e.target.value;
+    //console.log("currentValue", currentValue);
+    let valid = pattern.test(currentValue);
+   
+
+    if (!valid) {
+      textName.innerHTML = "Veuillez rentrer une ville"
+    } else {
+      textName.innerHTML = ""
+    }
+  })
+  
+   
+} 
+
+// Fonction valide email
+
+validEmail ()
+
+function validEmail () {
+  let email = document.getElementById("email");  // city
+  let textName = document.getElementById("emailErrorMsg");  //cityErrorMsg
+
+  email.addEventListener('input', function (e) {
+    let pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;      // /^([A-Za-z0-9\s\-]){5,50}$/;
+    let currentValue = e.target.value;
+    console.log("currentValue", currentValue);
+    let valid = pattern.test(currentValue);
+   
+
+    if (!valid) {
+      textName.innerHTML = "Veuillez rentrer un email valide"
+    } else {
+      textName.innerHTML = ""
+    }
+  })
+  
+   
+} 
 
 
- validInput("firstName", "Votre prenom doit etre entre trois et vingt caractères", "/^([a-zA-Z]{2,20})$/")
-validInput("lastName", "Votre nom doit etre entre trois et vingt caractères", "/^([a-zA-Z]{2,20})$/")
+// Effet du boutton commander
 
-      function validInput (input, msg, regex) {
+const butonSendForm = document.getElementById('order');
+
+butonSendForm.addEventListener('click', (e) => {
+  console.log("RéponseFormulaire");
+
+  //Récupération des valeur du formulaire
+ 
+  const formValues = {
+    prenom: document.getElementById("firstName").value,
+     nom: document.getElementById("lastName").value,
+    adresse: document.getElementById("address").value,
+    ville: document.getElementById("city").value,
+    email: document.getElementById("email").value
+  }
+
+  console.log("formValues", formValues);
+
+  if (validName ()) {
+    console.log("ca marche");
+  } else {
+    console.log("stop");
+  }
+
+}) // fin d'effet du bouton commander
+
+
+
+
+// Fonction validation abrégée
+
+
+
+
+/* validInput("firstName", "/^([a-zA-Z]{2,20})$/", "Votre prenom doit etre entre trois et vingt caractères")
+validInput("lastName", "/^([a-zA-Z]{2,20})$/", "Votre nom doit etre entre trois et test caractères" )
+
+      function validInput (input, regex, msg) {
         let dat = document.getElementById(input);
         let textName = document.getElementById("firstNameErrorMsg");
       
         dat.addEventListener('input', function (e) {
-          let pattern = regex;
+          let pattern = /^([a-zA-Z]{2,20})$/;
           let currentValue = e.target.value;
           console.log("currentValue", currentValue);
           let valid = pattern.test(currentValue);
@@ -250,7 +397,7 @@ validInput("lastName", "Votre nom doit etre entre trois et vingt caractères", "
         }
        })   
          
-      }
+      }  */
  
 
 
