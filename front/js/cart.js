@@ -204,7 +204,13 @@ console.log('salut cava?')
 
 //Fonction pour verifier le prénom
 
-let form = []
+let formCheck = {
+  firstName: false,
+  lastName: false,
+  email: false,
+  address: false,
+  city: false,
+}
 
 
   validName ()
@@ -222,12 +228,12 @@ function validName () {
 
     if (!valid) {
       textName.innerHTML = "Votre nom doit etre entre deux et vingt caractères"
-      return false;
+      formCheck.firstName = false;
     } else {
      // form.push({name: firstName.value})
       //console.log("formulaire", form);
       textName.innerHTML = ""
-      return true;
+      formCheck.firstName = true;
     }
   })
   
@@ -252,12 +258,12 @@ function validLastName () {
 
     if (!valid) {
       textName.innerHTML = "Votre nom doit etre entre deux et vingt caractères"
-      return false;
+      formCheck.lastName = false;
     } else {
       //form.push({name2:lastName.value})
       //console.log("formulaire", form);
       textName.innerHTML = ""
-      return true;
+      formCheck.lastName = true;
     }
   })
   
@@ -281,8 +287,10 @@ function validAddress () {
 
     if (!valid) {
       textName.innerHTML = "Veuillez rentrer une adresse valide"
+      formCheck.address = false;
     } else {
       textName.innerHTML = ""
+      formCheck.address = true;
     }
   })
   
@@ -306,8 +314,10 @@ function validVille () {
 
     if (!valid) {
       textName.innerHTML = "Veuillez rentrer une ville"
+      formCheck.city = false;
     } else {
       textName.innerHTML = ""
+      formCheck.city = true;
     }
   })
   
@@ -331,8 +341,10 @@ function validEmail () {
 
     if (!valid) {
       textName.innerHTML = "Veuillez rentrer un email valide"
+      formCheck.email = false;
     } else {
       textName.innerHTML = ""
+      formCheck.email = true;
     }
   })
   
@@ -340,65 +352,117 @@ function validEmail () {
 } 
 
 
-// Effet du boutton commander
+
+//------------------------Créer un tableau avecs les ids des produits commandés
+
+let jeudi = sofa[1].id //  pour sortir les'IDs des produits du local storage
+console.log("jeudi", jeudi);
+
+let listOfIds = []
+
+for (let y = 0; y <sofa.length; y++) {
+  let IDS = sofa[y].id
+  listOfIds.push(IDS)
+}
+
+console.log("listOfIds", listOfIds);
+// La partie du dessus fonctionne
+
+//---------Rassembler les données a transmettre a l'API
+/* let orderInfos =
+function createOrderInfos() {
+    orderInfos = {
+        contact: {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value,
+          address: address.value,
+          city: city.value
+        },
+        products: listOfIds
+    }
+} */
+
+//console.log("orderInfos", orderInfos);
+///////
+
+
+//-----------
+
+
+
+//-------------------------------------- Effet du boutton commander
 
 const butonSendForm = document.getElementById('order');
 
 butonSendForm.addEventListener('click', (e) => {
+  e.preventDefault();
   console.log("RéponseFormulaire");
 
   //Récupération des valeur du formulaire
  
-  const formValues = {
-    prenom: document.getElementById("firstName").value,
-     nom: document.getElementById("lastName").value,
-    adresse: document.getElementById("address").value,
-    ville: document.getElementById("city").value,
-    email: document.getElementById("email").value
-  }
+  
 
-  console.log("formValues", formValues);
+  console.log("formCheck", formCheck);
+  console.log(firstName.value)
 
-  if (validName ()) {
-    console.log("ca marche");
+  if (formCheck.firstName && formCheck.lastName && formCheck.address && formCheck.city && formCheck.email) {
+    //on envoie
+    
+   const promise01 = fetch("http://localhost:3000/api/products/order", {
+
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+        
+      body: JSON.stringify({
+        contact: {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value,
+          address: address.value,
+          city: city.value
+        },
+        products: listOfIds
+      }),
+         //
+    })
+    
+    
+    
+    .then(function(response) {
+      if (response.ok) {
+        return response.json()
+      }
+    })
+    
+    .then(function(data) {
+      //sofa.clear();
+      
+      document.location.href = "confirmation.html?orderId=" + data.orderId  //a verifier
+    })
+     .catch(function(err){
+
+    }) 
+    console.log("firstName", firstName);
+
+    //-------------------ce qui s'envoit va au dessus
+    console.log("promise01", promise01); // Le console log marche ici
+    console.log("ca marche enfin");
   } else {
-    console.log("stop");
+    alert("Veuillez remplir correctement le formulaire")
   }
+
+  
 
 }) // fin d'effet du bouton commander
 
 
 
 
-// Fonction validation abrégée
 
-
-
-
-/* validInput("firstName", "/^([a-zA-Z]{2,20})$/", "Votre prenom doit etre entre trois et vingt caractères")
-validInput("lastName", "/^([a-zA-Z]{2,20})$/", "Votre nom doit etre entre trois et test caractères" )
-
-      function validInput (input, regex, msg) {
-        let dat = document.getElementById(input);
-        let textName = document.getElementById("firstNameErrorMsg");
-      
-        dat.addEventListener('input', function (e) {
-          let pattern = /^([a-zA-Z]{2,20})$/;
-          let currentValue = e.target.value;
-          console.log("currentValue", currentValue);
-          let valid = pattern.test(currentValue);
-         console.log("valid", valid)
-      
-          if (!valid) {
-            textName.innerHTML = msg
-          }
-           else {
-            textName.innerHTML = ""            
-        }
-       })   
-         
-      }  */
- 
 
 
 
