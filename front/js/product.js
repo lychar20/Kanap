@@ -119,12 +119,15 @@ elementclique.addEventListener('click', function(event) {
     let myInput = document.getElementById('quantity');
     let myInput2 = document.getElementById('colors');
 
-    if ( myInput.value == 0 ) { 
-        alert("choississez une quantité");
+    if ( myInput.value == 0 && myInput2.value == "") { 
+        alert("choississez une quantité et une couleur");
         e.preventDefault();
     } else if (myInput2.value == "") { 
         alert("choississez une couleur");
-     } else { 
+     } else if (myInput.value == 0) { 
+        alert("choississez une quantité");
+     }
+      else { 
     addBasket(sofa);
 }
 

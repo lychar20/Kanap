@@ -40,7 +40,7 @@ if (sofa != null ) {
 
     displayProduct()
     calculTotal()
-    addEventOnButton() 
+    deleteaSofa() 
     changeQuantity()
     
     
@@ -159,7 +159,7 @@ function calculTotal () {
 
 console.log('salut cava?')
 
- function addEventOnButton () { 
+ function deleteaSofa () { 
 
   let deleteproduct = document.querySelectorAll('.deleteItem');
   console.log ("deleteproduct", deleteproduct);
@@ -439,9 +439,10 @@ butonSendForm.addEventListener('click', (e) => {
     })
     
     .then(function(data) {
-      //sofa.clear();
+      
       
       document.location.href = "confirmation.html?orderId=" + data.orderId  //a verifier
+      //localsotage.clear();
     })
      .catch(function(err){
 
@@ -453,7 +454,7 @@ butonSendForm.addEventListener('click', (e) => {
     console.log("ca marche enfin");
   } else {
     alert("Veuillez remplir correctement le formulaire")
-  }
+  } 
 
   
 
