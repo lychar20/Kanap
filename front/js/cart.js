@@ -186,6 +186,10 @@ console.log('salut cava?')
       sofa.splice(indexDelete, 1)
       panierentier.splice(indexDelete, 1) 
 
+      if (sofa == 0) {
+        window.location.href = "cart.html"
+      }
+
       /* sofa = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2);
       panierentier = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2); */
       
