@@ -5,7 +5,7 @@ let panierentier = []
 
 let allPromises = []
 
-if (sofa != null ) {
+//if (sofa != null) {
 
   sofa.forEach(canap => {
 
@@ -44,18 +44,23 @@ if (sofa != null ) {
     changeQuantity()
     
     
+    
 
   })
      
 
-} else {
+/*  } else {
     document
    .getElementById("cart__items")
    .innerHTML = "NANNNNNNNN";
     
-}
+}  */
 
-
+  if (sofa == null || sofa.length ==0) {
+  alert("votre panier est vide")
+  document.location.href = "index.html"
+ }
+ 
 
 
 // Les Fonctions
@@ -143,7 +148,7 @@ function calculTotal () {
       console.log("index", index);
 
       sofa[index].nombre = e.target.value
-      panierentier[index].nombre = e.target.value // a bosser
+      panierentier[index].nombre = e.target.value 
       console.log("coucou", sofa[index].nombre);
       
 
@@ -354,16 +359,24 @@ function validEmail () {
 
 
 //------------------------Créer un tableau avecs les ids des produits commandés
-
-let jeudi = sofa[1].id //  pour sortir les'IDs des produits du local storage
+let jeudi = sofa[0].id //  pour sortir les'IDs des produits du local storage
 console.log("jeudi", jeudi);
+
 
 let listOfIds = []
 
-for (let y = 0; y <sofa.length; y++) {
+for (let y in sofa) {
   let IDS = sofa[y].id
+  console.log("IDS", IDS);
   listOfIds.push(IDS)
 }
+
+
+/* for (let y = 0; y < sofa.length; y++) {
+  let IDS = sofa[y].id
+  console.log("IDS", IDS);
+  listOfIds.push(IDS)
+} */
 
 console.log("listOfIds", listOfIds);
 // La partie du dessus fonctionne
@@ -392,6 +405,9 @@ function createOrderInfos() {
 
 
 //-------------------------------------- Effet du boutton commander
+
+
+
 
 const butonSendForm = document.getElementById('order');
 
@@ -440,9 +456,9 @@ butonSendForm.addEventListener('click', (e) => {
     
     .then(function(data) {
       
-      
+      //sofa.clear();
       document.location.href = "confirmation.html?orderId=" + data.orderId  //a verifier
-      //localsotage.clear();
+      
     })
      .catch(function(err){
 
