@@ -5,7 +5,7 @@ let panierentier = []
 
 let allPromises = []
 
-//if (sofa != null || sofa.length >= 1) {
+if (sofa != null /*|| sofa.length >= 1*/) {
 
   sofa.forEach(canap => {
 
@@ -48,7 +48,7 @@ let allPromises = []
 
   })
      
-
+ }
   //} else {
     /* document
    .getElementById("cart__items")
