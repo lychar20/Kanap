@@ -5,7 +5,7 @@ let panierentier = []
 
 let allPromises = []
 
-//if (sofa != null) {
+//if (sofa != null || sofa.length >= 1) {
 
   sofa.forEach(canap => {
 
@@ -49,17 +49,20 @@ let allPromises = []
   })
      
 
-/*  } else {
-    document
+  //} else {
+    /* document
    .getElementById("cart__items")
-   .innerHTML = "NANNNNNNNN";
+   .innerHTML = "NANNNNNNNN"; */
     
-}  */
+  // alert("votre panier est vide")
+ // document.location.href = "index.html"
 
-  if (sofa == null || sofa.length ==0) {
+//} 
+
+   if (sofa == null || sofa.length < 1) {
   alert("votre panier est vide")
   document.location.href = "index.html"
- }
+ } 
  
 
 
@@ -186,9 +189,7 @@ console.log('salut cava?')
       sofa.splice(indexDelete, 1)
       panierentier.splice(indexDelete, 1) 
 
-      if (sofa == 0) {
-        window.location.href = "cart.html"
-      }
+     
 
       /* sofa = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2);
       panierentier = sofa.filter(p => p.id !== productID2 && p.couleur !== productColor2); */
@@ -201,6 +202,11 @@ console.log('salut cava?')
       //location.reload();
 
       calculTotal ()
+
+      if (sofa.length < 1) {
+        alert("Votre panier est vide");
+        window.location.href = "index.html"
+      }
       
     
     })
@@ -460,7 +466,7 @@ butonSendForm.addEventListener('click', (e) => {
     
     .then(function(data) {
       
-      //sofa.clear();
+      localStorage.clear();
       document.location.href = "confirmation.html?orderId=" + data.orderId  //a verifier
       
     })
